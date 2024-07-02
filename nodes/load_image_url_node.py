@@ -36,6 +36,11 @@ def pil2tensor(img):
 
 def load_image(image_source):
     if image_source.startswith('http'):
+        # 替换google storage
+        if image_source.startswith("https://storage.googleapis.com"):
+            # 替换URL中的域名
+            image_source = image_source.replace("https://storage.googleapis.com", "https://google.qisi.co")
+
         print(image_source)
         response = requests.get(image_source)
         img = Image.open(BytesIO(response.content))
